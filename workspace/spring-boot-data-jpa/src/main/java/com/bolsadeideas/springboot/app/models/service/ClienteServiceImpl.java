@@ -63,6 +63,12 @@ public class ClienteServiceImpl implements IClienteService {
 		
 		return productoDao.findByNombreLikeIgnoreCase("%"+term+"%");
 	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Cliente fetchByIdWithFacturas(Long id) {
+		return clienteDao.fetchByIdWithFacturas(id);
+	}
 
 	@Override
 	@Transactional
@@ -91,7 +97,13 @@ public class ClienteServiceImpl implements IClienteService {
 		// TODO Auto-generated method stub
 		facturaDao.deleteById(id);
 	}
-	
-	
+
+	@Override
+	@Transactional
+	public Factura fetchFacturaByIdWithClientWithItemFacturaWithProducto(Long id) {
+		// TODO Auto-generated method stub
+		return facturaDao.fetchByIdWithClientWithItemFacturaWithProducto(id);
+	}
+		
 
 }
