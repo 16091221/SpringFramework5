@@ -1,7 +1,9 @@
 package com.bolsadeideas.springboot.app.models.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -34,6 +36,15 @@ public class Cliente implements Serializable {
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date createAt;
+									//orphanRemoval, elimina registros huérfanos que no están asocioados a ningún cliente
+	@OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Factura> facturas;
+	
+	
+
+	public Cliente() {
+		facturas = new ArrayList<Factura>();
+	}
 
 	private String foto;
 
@@ -87,6 +98,23 @@ public class Cliente implements Serializable {
 
 	public void setFoto(String foto) {
 		this.foto = foto;
+	}
+
+	public List<Factura> getFacturas() {
+		return facturas;
+	}
+
+	public void setFacturas(List<Factura> facturas) {
+		this.facturas = facturas;
+	}
+	
+	public void addFactura(Factura factura) {
+		facturas.add(factura);
+	}
+
+	@Override
+	public String toString() {
+		return nombre + " " + apellido;
 	}
 	
 }
