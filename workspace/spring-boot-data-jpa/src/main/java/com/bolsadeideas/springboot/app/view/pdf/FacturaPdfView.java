@@ -89,7 +89,7 @@ public class FacturaPdfView extends AbstractPdfView{
 			tabla3.addCell(item.calcularImporte().toString());
 		}
 		
-		cell = new PdfPCell(new Phrase("text.factura.form.total"));
+		cell = new PdfPCell(new Phrase(mensajes.getMessage("text.factura.form.total")));
 		cell.setColspan(3);
 		cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
 		tabla3.addCell(cell);
